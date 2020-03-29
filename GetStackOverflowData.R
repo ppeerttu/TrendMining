@@ -17,7 +17,7 @@ source("FunctionsStackOverflowApi.R")
 query_string = "robot framework"#2208 items works for demo
 my_filename = "robot_framework"
 
-#get_stackOverFlowData = function(query_string, my_filename) {
+get_stackOverFlowData = function(query_string, my_filename) {
 
   my_articles = get_stackoverflow_data(query_string)
   #remove source code and othe stuff from the body of the asnwer. It is called abstract to make it compatible with Scopus data
@@ -42,7 +42,7 @@ my_filename = "robot_framework"
   my_articles$LA_Date = as.Date(my_articles$LA_Date)
 
   #Fixed filename: data/my_STO_<xxx>_data.RData
-  my_file = my_work_dir
+  my_file = "."
   my_file = paste(my_file, "/data/my_STO_", sep="", collapse=" ")
   my_file = paste(my_file, my_filename, sep="", collapse=" ")
   my_file = paste(my_file, "_data.RData", sep="", collapse=" ")
@@ -50,4 +50,6 @@ my_filename = "robot_framework"
   save(my_articles, file=my_file)
 
   return(my_file)
-#}
+}
+
+get_stackOverFlowData(query_string, )

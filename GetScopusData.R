@@ -1,5 +1,5 @@
 #install.packages("text2vec", dependencies = TRUE)
-library("text2vec")
+# library(text2vec)
 
 
 source("FunctionsScopusApi.R")
@@ -22,10 +22,9 @@ query_string = "Continuous Integration"
 my_filename = "ci"
 
 
-
 #later you may want to make this function. 
 #for learning it is better to excute in line by line fashion
-#get_ScopusData = function(query_string, my_filename){
+get_ScopusData = function(query_string, my_filename) {
 
   my_query_string = "TITLE-ABS-KEY(\""
   my_query_string = paste(my_query_string, query_string, sep="")
@@ -43,8 +42,8 @@ my_filename = "ci"
 
   #Remove copyright sign.
   abstract = my_articles$Abstract
-  abstract = gsub("Copyright ©+[^.]*[.]","",abstract)
-  abstract = gsub("©+[^.]*[.]","",abstract) # Depdenging on the enviroment or data you might need something different* 
+  abstract = gsub("Copyright ?+[^.]*[.]","",abstract)
+  abstract = gsub("?+[^.]*[.]","",abstract) # Depdenging on the enviroment or data you might need something different* 
   abstract = gsub("All rights reserved[.]","",abstract)
   abstract = gsub("All right reserved[.]","",abstract)
   abstract = gsub("No abstract available[.]","",abstract)
@@ -71,12 +70,19 @@ my_filename = "ci"
   my_articles$Date = as.Date(my_articles$Date)
   
   #Fixed filename: /data/my_scopus_<my_filename>_data.RData
-  my_file = my_work_dir
+  my_file = 
   my_file = paste(my_file, "/data/my_Scopus_", sep="", collapse=" ")
   my_file = paste(my_file, my_filename, sep="", collapse=" ")
   my_file = paste(my_file, "_data.RData", sep="", collapse=" ")
+  
+  print(my_file)
 
   save(my_articles, file=my_file)
     
-#  return(my_file)
-#}
+  return(my_file)
+}
+
+get_ScopusData(query_string, my_filename)
+
+
+

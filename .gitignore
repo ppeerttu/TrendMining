@@ -2,3 +2,7 @@
 *.RData
 *.pdf
 *.png
+*.env
+!example*.env
+.Rproj.user
+.Rhistory

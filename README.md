@@ -30,8 +30,9 @@ In other cases you may email prof. Mika Mäntylä <mika.mantyla@oulu.fi>
 Scripts
 
 1. Edit and execute Initialize.R 
-- Set-up environment variables => work directory, path to GetOldTweets-java-master folder, StackOverflow API key & Scopus API key
-- Execute the file line by line (shortcut CTRL+Enter)
+   - Set-up environment variables => work directory, path to GetOldTweets-java-master folder, StackOverflow API key & Scopus API key
+     - Use [example.env](./example.env) -file to create `.env` file (not tracked by Git)
+   - Execute the file line by line (shortcut CTRL+Enter)
 
    If you are using IT center computers, you can alternatively run ClassRoomSpecificSettings.r to create local directories for libraries, and data, to solve the network drive problems. Remember to change the API keys to the ones you have created for the sources.
 
