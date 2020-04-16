@@ -10,16 +10,11 @@
 
 source("FunctionsStackOverflowApi.R")
 
-#query_string = string to be searched
-#my_filename = string to be used as a part of the filename
-
-#For example
-query_string = "robot framework"#2208 items works for demo
-my_filename = "robot_framework"
 
 get_stackOverFlowData = function(query_string, my_filename) {
-
-  my_articles = get_stackoverflow_data(query_string)
+  print(paste("Querying:", query_string))
+  pagesize = 50
+  my_articles = get_stackoverflow_data(query_string, pagesize)
   #remove source code and othe stuff from the body of the asnwer. It is called abstract to make it compatible with Scopus data
   abstract = my_articles$Abstract
   abstract = gsub("<code.*/code>", "", abstract)
@@ -52,4 +47,23 @@ get_stackOverFlowData = function(query_string, my_filename) {
   return(my_file)
 }
 
-get_stackOverFlowData(query_string, )
+query_string <- "aws-lambda"
+my_filename <- query_string
+get_stackOverFlowData(query_string, my_filename)
+
+query_string <- "google-cloud-functions"
+my_filename <- query_string
+get_stackOverFlowData(query_string, my_filename)
+
+
+query_string <- "azure-functions"
+my_filename <- query_string
+get_stackOverFlowData(query_string, my_filename)
+
+query_string <- "serverless"
+my_filename <- query_string
+get_stackOverFlowData(query_string, my_filename)
+
+
+
+

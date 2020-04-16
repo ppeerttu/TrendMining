@@ -7,8 +7,8 @@ source("FunctionsTwitterApi.R")
 #my_filename = string to be used as a part of the filename
 
 #For example
-query_string = "#jenkins"
-my_filename = "jenkins"
+query_string = "#serverless"
+my_filename = "serverless"
 
 #get_TwitterData = function (query_string, my_filename) {
 
@@ -34,7 +34,7 @@ my_filename = "jenkins"
   abstract = gsub("[\'\"/.,-:;!=%~*]", " ", abstract)
   abstract = gsub("[.]", " ", abstract)
   abstract = gsub("[ \t]{2,}", " ", abstract)
-  abstract <- chartr("åäáàâãöóòôõúùûüéèíìïëêñý", "aaaaaaooooouuuueeiiieeny", abstract)
+  abstract <- chartr("????????????????????????", "aaaaaaooooouuuueeiiieeny", abstract)
  
   #Text
   title = gsub("#", " ", title)
@@ -45,7 +45,7 @@ my_filename = "jenkins"
   title = gsub("[\'\"/.,-:;!=%~*]", " ", title)
   title = gsub("[.]", " ", title)
   title = gsub("[ \t]{2,}", " ", title)
-  title <- chartr("åäáàâãöóòôõúùûüéèíìïëêñý", "aaaaaaooooouuuueeiiieeny", title)
+  title <- chartr("????????????????????????", "aaaaaaooooouuuueeiiieeny", title)
   
   if (is.factor(my_articles$AuthorName))
     my_articles$AuthorName = levels(my_articles$AuthorName)[my_articles$AuthorName]
@@ -72,7 +72,7 @@ my_filename = "jenkins"
 
 
   #Fixed filename: /data/my_twitter_<xxx>_data.RData
-  my_file = my_work_dir
+  my_file = getwd()
   my_file = paste(my_file, "/data/my_twitter_", sep="", collapse=" ")
   my_file = paste(my_file, my_filename, sep="", collapse=" ")
   my_file = paste(my_file, "_data.RData", sep="", collapse=" ")

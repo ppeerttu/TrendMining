@@ -9,29 +9,37 @@ library(urltools)
 library(jsonlite)
 library(anytime)
 
-create_so_req_url <- function (filter_text)
+
+
+create_so_req_url <- function (filter_text, api_key, query, pagesize, page)
 {
   #Search for items matching the query string from StackOverflow
   api_url = 'https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&q='
-  api_url = paste(api_url, query_string, sep = '', collapse = '')
+  api_url = paste(api_url, query, sep = '', collapse = '')
   api_url = paste(api_url, '&filter=', sep = '', collapse = '')
   api_url = paste(api_url, filter_text, sep = '', collapse = '')
   api_url = paste(api_url, '&site=stackoverflow',sep = '', collapse = '')
   api_url = paste(api_url, '&key=', sep = '', collapse = '')
-  api_url = paste(api_url, so_api_key, sep = '', collapse = '')
-  
+  api_url = paste(api_url, api_key, sep = '', collapse = '')
+  api_url = paste(api_url, '&pagesize=', sep = '', collapse = '')
+  api_url = paste(api_url, pagesize, sep = '', collapse = '')
+  api_url = paste(api_url, '&page=', sep = '', collapse = '')
+  api_url = paste(api_url, page, sep = '', collapse = '')
 }
 
 
-get_stackoverflow_data = function (query_string){
+get_stackoverflow_data = function (query_string, pagesize) {
+  if (is.null(so_api_key) || so_api_key == "") {
+    print("WARN! so_api_key variable not set")
+  }
   #get total
-  api_url_total <- create_so_req_url("total")
+  api_url_total <- create_so_req_url("total", so_api_key, query_string, pagesize, 1)
   sample_total <- GET(URLencode(api_url_total))
   content_total <- content(sample_total)
   
   #get data
   filter_text = "withbody"
-  api_url <- create_so_req_url(filter_text)
+  api_url <- create_so_req_url(filter_text, so_api_key, query_string, pagesize, 1)
   #Prepare the url and fetch the data
   api_url = URLencode(api_url)
 
@@ -47,7 +55,7 @@ get_stackoverflow_data = function (query_string){
   #while (length(my_data$items) > 0) {
   repeat {
     
-    print(paste("page number: ", page_number, " items: ", page_number*30, " out of ", content_total$total, sep = '', collapse = ''))
+    print(paste("page number: ", page_number, " items: ", page_number*pagesize, " out of ", content_total$total, sep = '', collapse = ''))
 
     for (outerloop in 1:(length(my_data$items))) {
 
@@ -94,16 +102,8 @@ get_stackoverflow_data = function (query_string){
     else
     {
       page_number = page_number + 1
-
-      api_url = 'https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=activity&q='
-      api_url = paste(api_url, query_string, sep = '', collapse = '')
-      api_url = paste(api_url, '&filter=', sep = '', collapse = '')
-      api_url = paste(api_url, filter_text, sep = '', collapse = '')
-      api_url = paste(api_url, '&site=stackoverflow',sep = '', collapse = '')
-      api_url = paste(api_url, '&key=', sep = '', collapse = '')
-      api_url = paste(api_url, so_api_key, sep = '', collapse = '')
-      api_url = paste(api_url, '&page=', sep = '', collapse = '')
-      api_url = paste(api_url, page_number, sep = '', collapse = '')
+        
+      api_url <- create_so_req_url(filter_text, so_api_key, query_string, pagesize, page_number)
       
       api_url = URLencode(api_url)
       sample2 = GET(api_url)

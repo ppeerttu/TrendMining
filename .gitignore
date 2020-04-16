@@ -6,3 +6,8 @@
 !example*.env
 .Rproj.user
 .Rhistory
+target
+.settings
+.vscode
+.project
+.classpath
