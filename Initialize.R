@@ -26,4 +26,6 @@ rscopus::set_api_key(scopus_api_key)
 #** Set path to the directory for "GetOldTweets-java-master"
 getoldtweets_path = paste(getwd(),"/GetOldTweets-java-master", sep="")
 
+my_data_dir <- paste(getwd(), "/data", sep = "")
+
 
